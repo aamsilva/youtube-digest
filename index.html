@@ -1,0 +1,2482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Transcript Newsletter - 03 Apr 2026</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e4e4e7;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(79, 70, 229, 0.3);
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: white;
+        }
+        
+        header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .stat-card .number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #818cf8;
+        }
+        
+        .stat-card .label {
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+        
+        .section-header h2 {
+            font-size: 1.8em;
+        }
+        
+        .emoji { font-size: 1.5em; }
+        
+        .video-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .video-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .video-card.high-priority {
+            border-left: 4px solid #f59e0b;
+            background: linear-gradient(90deg, rgba(245,158,11,0.1) 0%, rgba(255,255,255,0.05) 100%);
+        }
+        
+        .video-card.medium-priority {
+            border-left: 4px solid #10b981;
+        }
+        
+        .video-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .video-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: white;
+            flex: 1;
+        }
+        
+        .video-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        .video-title a:hover {
+            color: #818cf8;
+        }
+        
+        .badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .badge-very-high { background: #dc2626; color: white; }
+        .badge-high { background: #f59e0b; color: black; }
+        .badge-medium-high { background: #10b981; color: white; }
+        .badge-medium { background: #3b82f6; color: white; }
+        .badge-low { background: #6b7280; color: white; }
+        
+        .video-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 0.85em;
+            opacity: 0.7;
+            flex-wrap: wrap;
+        }
+        
+        .video-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .video-summary {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            font-size: 0.9em;
+            line-height: 1.7;
+        }
+        
+        .video-summary strong {
+            color: #818cf8;
+        }
+        
+        .category-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            background: rgba(129, 140, 248, 0.2);
+            border-radius: 10px;
+            font-size: 0.8em;
+            color: #818cf8;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            opacity: 0.5;
+            font-size: 0.9em;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: #4f46e5;
+            border-color: #4f46e5;
+        }
+        
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8em; }
+            .video-header { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎬 YouTube Intelligence Newsletter</h1>
+            <p class="subtitle">Daily curated videos with AI-powered analysis • 03 April 2026</p>
+        </header>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="number">413</div>
+                <div class="label">Total Videos</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">2,564,955</div>
+                <div class="label">Total Words</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">49</div>
+                <div class="label">Channels</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">299</div>
+                <div class="label">High Priority</div>
+            </div>
+        </div>
+        
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterAll()">All</button>
+            <button class="filter-btn" onclick="filterCategory('AI/Tech')">🤖 AI/Tech</button>
+            <button class="filter-btn" onclick="filterCategory('Finance')">📈 Finance</button>
+            <button class="filter-btn" onclick="filterCategory('DeFi/Crypto')">₿ Crypto</button>
+            <button class="filter-btn" onclick="filterCategory('Science')">🔬 Science</button>
+            <button class="filter-btn" onclick="filterPriority('high')">🔥 High Priority</button>
+        </div>
+
+        <div class="section" data-category="AI/Tech">
+            <div class="section-header">
+                <span class="emoji">🤖</span>
+                <h2>AI/Tech</h2>
+                <span style="opacity: 0.6">(213 videos)</span>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=0B4tgG-CGXU" target="_blank">Why $129,000 Is the New Poor</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Economics Explained</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 2,600 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> The median household income in the United States is roughly $83,000 a year. That number is supposed to mean a comfortable, stable, solidly middle-class life. A house with a white picket fence, a car, and maybe a family holiday. The kind of life the American dream was built on. But... a household earning the median income in the United States, roughly $83,000 a year. What does that money actually cover? After federal income tax, payroll taxes, and state income tax, depending on where you live, take home pay lands somewhere in the mid $60,000 range. That's the pool of m
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=Sz4iKPhfttk" target="_blank">Are Hungarians...ASIANS?</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Geography Now</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 3,410 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> So in this world ethnol linguistic groups typically stay close to each other. You know in central Asia you have the Turk family you know like the Kazaks Kirgis and the Usuzbcks. You know in southern Africa you have the southern Bantau peoples like the Zulu or Kosa or Swazi... and they are not even part of the Indo-European branch of language families and they've just been isolated in these certain spots for like hundreds of generations. This is Hungary and as you can see Hungarians are completely surrounded by people that are not like them at all. And ev
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=x5sR5sGi6kU" target="_blank">These physicists think we're totally wrong about entropy</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Sabine Hossenfelder</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 1,020 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> In a recent paper, a group of physicists, including Carlo Ralli, argues that we've gotten the second law of thermodynamics wrong. It isn't a real law. It's a circular argument, logically wrong. A bold claim about something printed in thousands of physics textbooks. Even more amazing, they say that for... fully rigorous argument that relies only on established physics to dispel the possibility of the Boltzman brain hypothesis. But wait, it gets worse. Because of this, they say the second law of thermodynamics isn't a law. It's a circular argument. It's logically wrong. You see, the second law of thermo
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=q8RzZQcOYoA" target="_blank">Finally: Wireless Energy Transfer Sees Real Progress</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Sabine Hossenfelder</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 1,049 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Finland is testing a way to transmit electricity wirelessly using a combination of sound waves, laser systems, and electromagnetic radiation. This news recently made headlines, and I got a lot of questions about it. So, let's have a look. The research in question comes from the University of Helsinki. The... of 20% or so, which is actually pretty good for this sort of thing. Now, you might say, well, okay, but this isn't exactly the kind of wireless power you were hoping for. What you really want is probably a sort of way that your phone will just recharge out
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=lYVxRHk258g" target="_blank">More Evidence for UAPs! Scientists Afraid to Speak Out</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Sabine Hossenfelder</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 1,057 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> unidentified anomalous phenomena, UAPs for short, are the new UFOs and a new sighting just dropped. In the past decade, we've seen more and more of those, well, anomalous incidents. It's not that the incidents themselves are new. It's just that now we actually hear of them. Indeed, just a... the footage and reported the object splits into two parts shortly after entering the ocean and then briefly reemerging. Frame by frame analysis ruled out the possibility of a reflection or of a second object emerging from the water. So what was it? And then there are these videos r
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=oNiahV33VMQ" target="_blank">Is Love Enough? Sir - Video essay |Tilotema shome |Vivek gomber | Ending explained |</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Deep Look</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 434 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> that she became a widow in the 19th in the village it means the answer is will the like end how to define love what is love after all suicide they judge us in every decision of ours be it our clothes or our love life candy crush on the... these knots and accepts, for those who do not understand pending, in simple words Ratna uses to call Ashwin as unwanted heart to call a must win and finally when the movie ends skimming school to him officer Ashwin thanks for watching this officer Ashwin thanks for watching this video
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=-NzfTE8RI4w" target="_blank">The Weirdest Microscope</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Steve Mould</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 2,505 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Have you brushed your teeth? >> Yes. >> H Let me see. I made a video about Gel Site about 2 years ago, and they just released this new one that goes even smaller. Its purpose is to take precise 3D measurements of very small things. But here's what I've... crystal arrangement of the water molecules. It's the same reason snowflakes have six-fold symmetry, but it's surprising to see those little turret looking things here and there. My car gets this spidery looking frost sometimes. That's pretty cool. And this is how the frost on blades of grass look. Actually,
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=kuMUquaeE6g" target="_blank">Amplifying Invisible Motion</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Steve Mould</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 2,646 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> How much do tall buildings really sway? What about the wobbliest bridge in London? And is it possible to actually see the purring of a cat instead of just hearing it? Also, why is my 3D printer moving like this? These are all questions that we can answer with this... is moving about 5 mm in reality at the top there. And here we can see that my 3D printer is moving back and forth just 33 microns. You can characterize the movement in lots of different ways. For example, here's a plot of the movement of this aerial ov
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=q2C1JpQi5G4" target="_blank">Uncovering America's Underwater City</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Mark Rober</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 4,098 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Somewhere underneath the 1.3 billion tons of water behind me is a 180-year-old underwater city. This city built on the dreams of thousands of people looking to discover gold at hotels, churches, stage coaches, and even a cemetery. But all that vanished 70 years ago when rising waters swallowed the... >> not seeing transmit on. >> But there's nothing a group of engineers love more than a problem that needs to be fixed. You might check those connections. The antennas are hooked up to the box, right? >> What about this one? So, after another 30 minutes of intense troubleshooting,
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=RWbCC6f_k1c" target="_blank">The Liquid Hammer Toy You Can't Buy</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Steve Mould</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 2,673 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Cheers. >> Cheers. Interestingly, you can make that clink sound on your own with a single glass and nothing inside but pure water. And all you have to do is shake it like this >> or like this. >> The glass needs to be a special shape. Though, if you... bottom of the vial. But in general, as everything's moving around in there, the air breaks up larger bodies of water into smaller droplets. And a similar thing happens when water falls out of the sky. Droplets grow in size when they collide and merge. But to see what happe
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=jjpjjcMeujM" target="_blank">Ronaldo vs My Unbeatable Goalie Robot</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Mark Rober</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 5,144 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> This is the [snorts] world's greatest goalkeeper because it's a robot and it's really, really fast. And this is Ronaldo, the world's greatest SOCCER PLAYER, >> CRISTIANO RONALDO. RONALDO. >> RONALDO. >> SO, THE QUESTION BECOMES, what happens when the world's greatest player faces off against the world's greatest keeper?... Jogging. It's massage. >> Six more things. >> Can you just write this down for me? >> Just read my book. >> Oh, does it come in audio book? >> Yes, it does. It does. Okay, good. >> Let me see what we're working with. >> We started by running
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=RaQfGqsB30o" target="_blank">Can You Turn a Rainbow Back into White Light?</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Steve Mould</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 2,080 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> You know, [music] when I look at a rainbow, I always think, I wonder if it's possible to recombine that back into white light. >> Sorry, why am I here? >> They just like you being in videos. Well, I like you in the last one. I don't know. Just... why light bends when it goes from air to glass. But it always comes down to the fact that light slows down when it enters the glass. But why does that lead to the light bending? Well, my favorite way of looking at it is in terms of wavefronts. So,
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=pLtHyLlLt4Y" target="_blank">How to Escape Alcatraz With Basic Engineering</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Mark Rober</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 5,062 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> This is Alcatraz, the world's most famously secure prison. And today, I'm going to try and escape. This does not feel good. But I'll be doing it in a very specific way by recreating the exact same actions these three daring prisoners took. This is a tight squeeze. When they... had previously escaped from other prisons, so they were sent to Alcatraz because no one had successfully escaped in its 28-year history. So, in order to assess and truly appreciate every aspect of their bootleg prison engineering, I needed to recreate all the steps they took in their escape. So,
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=B_JavY7pSfE" target="_blank">Surely it Breaks The 2nd Law</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Steve Mould</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 2,602 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> When I blow air into this device, it separates the air into cold molecules that come out of this end and hot molecules that come out of this end. See how the hot end can melt gallium? It doesn't use electricity and there are no moving parts. Isn't that crazy?... When the spinning air is forced into the middle of the tube, all that angular momentum is concentrated into a smaller space and so it spins faster. So you've got an outer vortex and an inner vortex, but one of them is spinning faster than the other. That's the first
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=ZWSvHBG7X0w" target="_blank">Do *you* understand ISO?</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 minutephysics</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 2,693 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> [music] I thought I understood ISO. I thought it was just how sensitive a camera sensor is to incoming light and that using the lowest ISO setting possible would give you the nicest image with the lowest noise. But I was wrong about both in a way that led me... analog electrical signals, and then turn those electrical signals into data. A digital list of ones and zeros. More specifically, though still way oversimplifying, after passing through a camera lens, light hits the photo sites arrayed on an image sensor, which absorbs the light and turn it into an el
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=cRaKMTK7ea0" target="_blank">I Went Into a Nuclear Plant and It Changed How I Think About Radiation - Smarter Every Day 309</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 SmarterEveryDay</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 8,470 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> I'm about to show you a video of the moment when two nuclear plant workers tell me how they really feel about the safety of their job. >> I wish the whole public knew how safe what we really did was considering how dangerous what we're dealing with is. You... nuclear power. [Music] In the first video, we went out to Idaho National Lab where we saw EBR1, the world's first nuclear power plant. That particular plant was a fast reactor plant that also bred new fuel. That video laid the foundation for our understanding on how neutrons drive nuclear
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=dt_CG_xRnrY" target="_blank">Pompeii Changed How I Think About The Roman Empire - Smarter Every Day 310</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 SmarterEveryDay</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 9,255 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> This video is not for kids. Um, we're going to talk about death. We're going to talk about difficult issues, exploitation of people by other people. We're going to talk about the reality of living in the Roman Empire in a way that I did not expect, but I think... is. When I think of a volcano erupting, I think of red molten rock lava and magma flowing down a hill and covering things. But a pyrolastic plow, as I understand, is a little bit different. It's like rock and ash that's shooting down a hillside with hot gases mixe
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=v0afQ6w3Bjw" target="_blank">Refueling a NUCLEAR REACTOR - Smarter Every Day 311</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 SmarterEveryDay</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 20,332 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Is that a hot Is that a hot rod? >> It is very hot. >> That's a very hot rod. >> Yes. Back on the water wouldn't no longer be here. None of us out there. >> Really? >> Really. >> Hey, it's me, Dustin. Welcome back to Smarter Every... angry face. This is also his happy face. [laughter] This is his excited face. And that's kind of who you want working in a nuclear plant, I feel. >> Yeah. I'm I'm the most boring man you'll meet. [laughter] I have to get extra medium shirts. >> Extra medium. [laughter
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=XwBZx1cXEdM" target="_blank">Why Do Spinning Things Do This? - Smarter Every Day 312</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 SmarterEveryDay</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 3,692 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> It's finally time for the flying saucer video. No, I'm I'm joking. So, um welcome to Smarter Every Day. This is a YouTube channel that I I'm My name's Destin. I make little experiments sometimes to try to understand things. And there's a a thing that I want to understand... So, now let's look at gyroscopic precession. Let's look at what happens when the disc is spinning and I put a force there, okay? Let's do that. And the way we're going to put the spinny-tude in this is I have 3D printed that thing, and I have the dis
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=-0JKHuzJ67A" target="_blank">Everything About Disc Golf Aerodynamics - Smarter Every Day 313</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 SmarterEveryDay</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 17,501 words</span>
+                    <span class="category-tag">AI/Tech</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Hey, it's me, Destin. Welcome back to Smarter Everyday. This is my favorite disc golf course in the entire world, and I have a physics question for you today. Let's go figure it out. Every time you throw a disc golf disc, it curves. Every time there's a curve, it... episode, if you've seen that. The reason we're in Finland is for the first time ever, the Professional Disc Golf Association World Championships is being held outside of the United States. It's being held in Finland. Fins absolutely love disc golf. So, the day before competition, I went to th
+                </div>
+            </div>
+
+        </div>
+
+        <div class="section" data-category="Finance">
+            <div class="section-header">
+                <span class="emoji">📈</span>
+                <h2>Finance</h2>
+                <span style="opacity: 0.6">(76 videos)</span>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=EIyMQnAwniU" target="_blank">Where should I invest 1,000, 5,000, or 10,000 euros?</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Edge Over Hedge</span>
+                    <span>📅 03 Apr 22:57</span>
+                    <span>📄 1,711 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Hello. Having money that isn't earning interest is one of the biggest mistakes you can make. Even if you don't want to invest in riskier assets, you should at least put it to work earning interest to mitigate the effect of inflation over time. In 2025, the consumer price index... 24 months. Another option is to earn interest on your idle money. There are fintech digital banks and stockbrokers that offer interest on uninvested money, without the worry of money being tied up for any length of time. In practice, all you have to do is make a transfer a
+                </div>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=vEH4yo7PqzM" target="_blank">America’s Self-Inflicted Doctor Shortage</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Polymatter</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 2,648 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Wakulla County, Florida is home to 37,000 people. [music] There are three state parks, nearly a dozen schools, and even a small municipal airport. What there are not are doctors. Just 10 serve the entire county, which means per capita, there are fewer doctors here in the suburbs of Tallahassee... postsecondary journey, these graduates have no choice but to hope for better luck next year, while the interest on their $200,000 in student loans accumulates. But it's also a collective tragedy. Remember, these are already the top 50% [music] of students who scored highly enough on the MCAT for acc
+                </div>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=tFjvMTtbGHw" target="_blank">Why Puerto Rico’s Economy Doesn’t Work</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Polymatter</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 2,486 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> In 1980, Puerto Rico was home to 3.2 million people, about the same as South Carolina. But whereas South Carolina gained another 2 million residents over the next 50 years, Puerto Rico gained just 2,000 people, 2,75 to be exact, a net increase of 0.08% or 61 people a year.... itself. This too was perfect. After all, once a drug is developed, tested, and brought to market, producing the 2 millionth tablet is cheap and can be done just about anywhere. By 1990, 17 of the top 21 most popular drugs in the United States were made in Puerto Ri
+                </div>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=Nb9uJD-XDVQ" target="_blank">Finland's Happy Little Economic Crisis</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Economics Explained</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 3,089 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Finland is consistently ranked as the happiest country on earth, topping off a list dominated by its other northern European peers, Denmark, Iceland, and Sweden. Now, this happiness is particularly impressive given that their country looks like this for at least a third of the year. But even still, from... figures that would be considered a crisis in any other economy? Managing your money isn't about chasing quick wins. It's about building steady habits that grow over time. With Trading 212 app, you can invest commission free in real stocks and ETFs and even buy fractional shares, so you d
+                </div>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=Gi1zk8rLqNI" target="_blank">Has the World Become Uninsurable?</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Economics Explained</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 3,018 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> For a long time, insurance has been one of the least visible and most stable parts of the economy. It wasn't exciting. It didn't grow fast, and that was the point. Insurance worked because risks were local, infrequent, and mostly independent. Storms happened, but not everywhere at once. Wars were... some cases, people with lower credit scores end up paying nearly twice as much. That's where our sponsor, Kickoff, can help. Kickoff is a simple, beginner-friendly app designed to help people build credit easily and safely. And it works, too. Kickoff users who made on-time payments saw an average in
+                </div>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=iWw_GCQm87g" target="_blank">How Art & Economics Build Wealth w/ Kyle Grieve (TIP803)</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 We Study Billionaires</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 12,177 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Now, if you can maintain an ROE of 20% while reinvesting 100% of your profits back into the business for decades, that's a business that you should probably be backing the truck up on because you can easily pay up for these types of businesses and still generate incredible returns.... right connections. For instance, if I want to buy something from them, I'd have to either shop online or visit one of their stores. And they actually don't have a store in my city. So, my next alternative would be to go to a premium department store such as Wh
+                </div>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=VdLfZJVfLkY" target="_blank">The Exact Order To Invest Your Money (Most People Get This Wrong)</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 WhiteBoard Finance</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 3,049 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> One in three Americans has no emergency fund. Zero. And the median amount for those who do, $500. That number is down from 600 just a year ago. So, while half of the country is asking whether they should buy Bitcoin or individual stocks, they've got a bucket full of... income, sitting in a high yield savings account where it's liquid and earning something while it waits. It doesn't necessarily have to be a high yield savings account. It could be something like esgov sv for example. But as long as you're protecting your purchasing power, your massive pee pe
+                </div>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=49aDxsvMhUI" target="_blank">Your Car Payment Is Stealing Your Retirement (The Math They Don't Show You)</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 WhiteBoard Finance</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 4,458 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> What if I told you that the single most socially accepted financial decision in America is quietly making millions of people broke? We obsess over $3 lattes. We cancel streaming subscriptions. We feel genuine guilt about $20 on takeout. But then without blinking, we walk into a dealership and sign... a depreciating liability on your wealth-b buildinging journey changes every decision you make around transportation. So you stop asking which car can I afford and you start asking how much depreciation am I willing to absorb and for how long. Those are completely different questions and they lead to complet
+                </div>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=YrMw6xOlUYc" target="_blank">How Much Car Can You Actually Afford? (By Salary)</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 WhiteBoard Finance</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 3,661 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> $767 a month. That is the average new car payment in America right now. According to Experian's most recent data, I'm not talking about a sports car or a luxury truck. This is the average. Before I say another word, think about what that number means for your retirement. Most... car expense, okay? It is just one of your car expenses, and it might not even be the biggest. On top of the payment, you still have insurance, which depending on your age, location, and driving record, can run anywhere from $100 to $300 a month or more. Then gas,
+                </div>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=b55VFtY_9n0" target="_blank">America’s Paper Economy Is Breaking</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Andrei Jikh</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 3,489 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> All right. So, according to history, during the last phase of an empire, there's a tug of war over power. And the question is, who gets to control money, trade, right? Who gets to make all the rules? And today, I want to show you a really good example of... of how sovereign power tries to assert itself while the financial power is profiting from all of it because it does not care about the outcome. All it cares about is placing a bet on the probability of both sides. So in this video, I want to break down the
+                </div>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=Dt45p4wuNow" target="_blank">The End Of Pax Americana</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Andrei Jikh</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 4,657 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> So, the United States went to war in the Middle East to protect what's called the petro dollar system, the most powerful system on earth. And there's a theory that says the US may have accidentally or intentionally started the process of destroying it. >> We are facing a real... said all that, let me explain the game that I think is being played, how this affects investors and the stock market, and the three possible outcomes that I think could potentially happen, and what I'm personally doing with my own investments. So, with that said, let's get into it.
+                </div>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=pP2_joPd23E" target="_blank">WTF Just Happened To The Housing Market?!</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Graham Stephan</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 3,228 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> What's up you guys? It's Graham here. So, this is getting out of control. For the first time in almost 20 years, the housing market has started to fall. 47 out of the top 50 cities are getting weaker. Listing prices are now lower than they were in 2024. And... where there's 197% more sellers than buyers, or Austin at 124%, other areas are seeing the exact opposite. Cities like Milwaukee and New York still have more buyers than sellers, pushing prices higher. So, the real question is, why is that happening? Well, home prices are currently growing the fastest
+                </div>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=D0WQK7cMJn8" target="_blank">We Made A New Channel!</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Kurzgesagt</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 428 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Today we're proud to present our new channel Night Shift Kazak after dark. For years we've wanted to make something new. A place for the stories that keep us up at night. So we finally did it. Here are the first 2 minutes of our first video. Flames light the... Great Wall in 1644, realized the Chinese system was too sophisticated to replace and simply kept it running with themselves in charge. Imagine this realm as a gravitational field. At its center sits the emperor in Beijing like a super massive black hole bending the fabric of society around him.
+                </div>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=Ol18JoeXlVI" target="_blank">This Paradox Splits Smart People 50/50</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Veritasium</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 4,760 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> There is a problem that I can't bring up without starting a fight. >> No. What? >> It just seems so obvious to me. >> Now I'm all screwed up, man. >> It has infiltrated every single Veritasi meeting in the last 2 months. >> It's trivial. >> I didn't... boxers who would take only the mystery box and two boxers who take both. But as American philosopher Robert Nosik wrote, to almost everyone, it is perfectly clear and obvious what should be done. The difficulty is that these people seem to divide almost evenly on the problem with l
+                </div>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=9szhjhO9epA" target="_blank">How Do Zippers Actually Work?</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Veritasium</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 3,670 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> How does a zipper actually work? Like try to push down on a zipper from above and it probably won't budge. But if you just use the pull tab, suddenly it's buttery smooth. So, how does it do this? We've made [music] more zippers than there are stars in the... and the whole thing could pop open. Naturally, the Universal Fastener Company had very few repeat customers and they fell into debt. But in 1906, a new engineer joined the team. 25-year-old Gideon Sundback, who had just moved to the US [music] from Sweden. Why does someone like Gideon Sund
+                </div>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=7NBa5o--y3k" target="_blank">The Cruise Industry's Arms Race</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Wendover Productions</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 3,344 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> If one headline could summarize the mood surrounding the cruise industry in 2008, [music] it's this: Go buy the trip and short the stock. The advice was declarative. A year into the Great Recession, it made sense. If ever there was going to be a screaming deal on a vacation,... revamped its fleet to reflect an overhaul in its cruising style. If they could get through the downturn, they figured that the future of cruising, which [music] they themselves were introducing, was bright. They had reason to project [music] confidence. Until this point, the past two decades for the matu
+                </div>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=8Rv4wwcQ89Y" target="_blank">How the Iran War will actually end</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 CaspianReport</span>
+                    <span>📅 03 Apr 22:55</span>
+                    <span>📄 2,265 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> People often imagine armed conflicts being won or lost on the battlefield. Armies advance, enemies retreat, and eventually one side wins. But modern wars rarely end that way. They end when three things start breaking at the same time. Munitions, markets, and midterms. These pressure points determine how long hostilities... video, or text. And if the match isn't right, you can switch therapists at any time at no extra cost. More than 6 million people have already gotten help through BetterHelp. If you're interested, click the link in the description or go to betterhelp.com/caspianreport to get 10% off your fir
+                </div>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=lpTZsPUEkdA" target="_blank">BRICS Just "Declared War" on the U.S. Dollar</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Andrei Jikh</span>
+                    <span>📅 03 Apr 17:28</span>
+                    <span>📄 2,706 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> In 1944, one currency started to dominate the world, the US dollar. For about 80 years, it's been the foundation of global trade and the weapon of American sanctions and the center of US economic power. But in 2025, that power is under attack. President Trump has just threatened 100%... of an earlier stage where their economies were more dependent on a smaller range of specialties. things like agriculture, raw materials or energy, which also usually means lower incomes per person, weaker capital or investment markets, and less global influence. So now they're evolving into a more diversified and globa
+                </div>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=tFjvMTtbGHw" target="_blank">Why Puerto Rico’s Economy Doesn’t Work</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Polymatter</span>
+                    <span>📅 02 Apr 23:06</span>
+                    <span>📄 2,486 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> In 1980, Puerto Rico was home to 3.2 million people, about the same as South Carolina. But whereas South Carolina gained another 2 million residents over the next 50 years, Puerto Rico gained just 2,000 people, 2,75 to be exact, a net increase of 0.08% or 61 people a year.... itself. This too was perfect. After all, once a drug is developed, tested, and brought to market, producing the 2 millionth tablet is cheap and can be done just about anywhere. By 1990, 17 of the top 21 most popular drugs in the United States were made in Puerto Ri
+                </div>
+            </div>
+
+            <div class="video-card medium-priority" data-priority="🔥 MEDIUM">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=Nb9uJD-XDVQ" target="_blank">Finland's Happy Little Economic Crisis</a>
+                    </div>
+                    <span class="badge badge-medium">🔥 MEDIUM</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Economics Explained</span>
+                    <span>📅 02 Apr 23:06</span>
+                    <span>📄 3,089 words</span>
+                    <span class="category-tag">Finance</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Finland is consistently ranked as the happiest country on earth, topping off a list dominated by its other northern European peers, Denmark, Iceland, and Sweden. Now, this happiness is particularly impressive given that their country looks like this for at least a third of the year. But even still, from... figures that would be considered a crisis in any other economy? Managing your money isn't about chasing quick wins. It's about building steady habits that grow over time. With Trading 212 app, you can invest commission free in real stocks and ETFs and even buy fractional shares, so you d
+                </div>
+            </div>
+
+        </div>
+
+        <div class="section" data-category="Geopolitics">
+            <div class="section-header">
+                <span class="emoji">🌍</span>
+                <h2>Geopolitics</h2>
+                <span style="opacity: 0.6">(57 videos)</span>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=WsZpKlNmpmI" target="_blank">DeadHand - Russia's Doomsday Weapon From Beyond the Grave.</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Curious Droid</span>
+                    <span>📅 03 Apr 22:57</span>
+                    <span>📄 2,797 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> How do you stop a nuclear armed opponent with better, more accurate weapons from launching a first strike that would decapitate the command structure of your country before you had a chance to launch your weapons in retaliation? That was the question that the leaders of the Soviet Union faced... get close enough to the target. This is what worried the Soviets. If one side could knock out the other's command and control with highly accurate targeting, they might be able to deal a killer blow to the other. Then what the Soviets feared the most happened as the US
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=T_OqU3ONq3w" target="_blank">Why did Mao win the Chinese Civil War?</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 History Matters</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 2,000 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> In 1949, after years of bitter fighting, Maoadong declared the creation of the People's Republic of China. And just under a year later, his new government had finished mopping up most of the opposing nationalist forces, leaving only Taiwan in their hands. But as many of you will know, as... 1931 made their full intentions clear when they took control of Manuria and placed it under the rule of the lasting emperor as their puppet state. The second problem was the ongoing communist insurgency throughout the Chinese countryside. There were numerous communist strongholds throughout the country, which the nationalists woul
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=5KXFYjKvr4k" target="_blank">John Bolton says Trump has lost the Iran war hawks | Today, Explained</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Vox</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 5,090 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> So for 20 years, there's basically been one guy who was always known as the Iran war guy in Republican politics. For years, even decades, Ambassador John Bolton has argued that America needs to push for regime change in Iran and take an active military role in making it happen.... the economy is a mess. The uh young people are they can see they can have a different kind of life. Twothirds of the population is under 30. The women are enormously dissatisfied since the death of Masiamini. Ethnic groups are dissatisfied. So to me, conditions are ripe for regim
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=HznjX-i3sqQ" target="_blank">The European Country Putin Stubbornly Refuses to Invade</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Polymatter</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 2,081 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Over the past four years, thousands of Ukrainians have made the ultimate sacrifice defending their country against an expansionist Russia. Yet, less than 40 m from the war on the other side of Ukraine lies a European territory that desperately [music] wants to be absorbed by Moscow. There's just one... was renamed and expanded to include all this new land. The Soviets could argue they had simply restored Muldova to its rightful full size. In other words, what became Muldova for the rest of the Cold War was actually a combination of two different territories. The left 80% had b
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=EZTWK5fjHnk" target="_blank">Taiwan is Not Venezuela</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Polymatter</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 3,075 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Friday, January 2nd was a day like any other for Nicholas Maduro. The president of Venezuela posted on Telegram about his productive meeting earlier that day before retiring to bed at his compound in Caracus. By that same time on Saturday, he was sitting in a Brooklyn prison. In those... on either the likelihood or timing of a Chinese invasion. On January 2nd, Beijing saw the US as a self-interested and hypocritical bully, using high-minded principles like international law as thinly veiled excuses to promote its own narrow objectives. And on January 3rd, it still believed that. On the 2nd
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=DvVqcgBiddc" target="_blank">Why didn't the US focus on Japan first in WW2? (Short Animated Documentary)</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 History Matters</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 1,979 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> When Japan launched its surprise attack on Pearl Harbor, it wasn't too surprising that the US would fight back. And when the Germans and the Italians, in an act of near unbelievable silliness, also declared war on the US, they were obviously going to have to fight them, too. But... British were very focused on the Germans because they were an existential threat to the home islands, and Churchill found an ally in most of the US Army. For the army, the fight against Germany was obviously going to be a land-focused campaign which would allow them to do the
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=nVFqq1a1r_s" target="_blank">Why did Austria-Hungary do so poorly in World War One? (Short Animated Documentary)</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 History Matters</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 1,971 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> AustriaHungary's military reputation in World War I is not exactly a positive one. Its initial attempt to conquer the much smaller Serbia was a complete catastrophe and many of its efforts on the Eastern front were equally as bad. Its navy struggled to achieve much of value and its military... were checks, 3% Slovakians, and 9% were Polish. 8% were Ukrainian/Riththenians, 1% Italian, 6% Romanian, 7% Serbian, and 3% spoke Slovine. And by the way, they weren't grouped up into regiments based upon shared language, but instead was based upon where you lived in the empire, which meant that languages
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=uw8sjn7z0Ls" target="_blank">Why couldn't the Mongols conquer Japan? (Short Animated Documentary)</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 History Matters</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 2,148 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> The Mongols are historically most famous for conquering all of this. From humble beginnings on the step to their conquests of places like the Kievan Rous in Eastern Europe, the Kurasmian Empire in the Middle East and most notably the Jin and Song dynasties in China. Now obviously they couldn't... simple. You're our vassel, so pay his tribute or we'll hurt you. His response was that he didn't respond and just sent them back to China. This didn't go down well with Kubli, who now had an excuse to invade. Now, those of you with a keen knowledge of milita
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=HZpyTTsx0xw" target="_blank">Why wasn't Teddy Roosevelt allowed to fight in World War One? (Short Animated Documentary)</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 History Matters</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 2,034 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> There have been countless times in human history where the funnier or frankly much better path hasn't been taken. And one such time when human history continued its streak of disappointing everyone occurred in 1917 when former President Theodore Roosevelt was given permission to raise a small American volunteer force... other block's actions because for Wilson, keeping out of the war was his primary foreign policy objective. Roosevelt, however, disagreed with this and was highly critical of Germany's invasion of Belgium and Wilson's lack of condemnation, too. Roosevelt believed that sitting out this war would mean that when the d
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=bGgs1MN16KU" target="_blank">Asia's "hidden" country ZOMIA...explained</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Geography Now</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 3,540 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> So, let's do a little mental exercise. I know you've all done this before, so you're probably going to be familiar with it. Let's all pretend for a moment that we are all medieval conquering warlords. Okay, let's say you want to expand your territory and empire. What are you... for anything. Liquid or you don't even have to put liquid in it. You can put your mom's gakugi in it if you want. Who cares? And as I always say, it is not selling out. If it's your brand any [bell] So, a couple months ago, I went t
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=D7x-QuNfcBY" target="_blank">The hidden "country" of CAUCASIA explained</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Geography Now</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 3,094 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> So, you've heard of the word Caucasian. It's the term generally used to refer to white people. But that kind of begs the question, why do we call them Caucasian? Is there a Caucasia? And if so, do all Caucasian people come from this speculative Caucasia? There's a lot to... and warlike. In medieval times, Mongols were described as smalleyed, broad-cheek, and monstrous, almost to amplify a sense of fear, which I mean, when you're getting attacked by the Mongols, it's it's kind of understandable. But throughout most of ancient history, your biological race wasn't so much important as it
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=TBHryws39sc" target="_blank">The Nightmare Geography Glitch Hiding in New Hampshire</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 RealLifeLore</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 4,062 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> If somebody asked you what the deadliest mountain in the world is, your first thought would probably wander to ones that are obviously very dangerous like Mount Everest or maybe even K2. If you're familiar with the world's second tallest mountain's brutal reputation. If you were limited to answering the... in America, but the deadliest mountain anywhere in the world. A fact that becomes all the more strange when you realize that you can simply drive a car or take a train all the way up to the summit. Unlike any of these other super deadly mountains that are dramatical
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=qZXpB0lHmd8" target="_blank">The Middle East's Next War After Iran</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 RealLifeLore</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 6,152 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> As all eyes on the Middle East remain fixated on the war between Iran and the United States and Israel, the stage is quietly being set behind the scenes for the next great era of conflict in the region that over the long run will be far more consequential than... the dominant geopolitical force that drives whatever happens in the Middle East next for the following decade. And all of this may come as rather surprising to you. Since last decade across the 2010s, Saudi Arabia and the UAE maintained closely aligned foreign policies with one another and were gen
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=Kp4eLkofznA" target="_blank">How The Iran War is Becoming a World War</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 RealLifeLore</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 6,368 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> On the final day of February, Donald Trump decided to take the biggest gamble of his political career and launch the biggest war the Middle East has seen in decades that is radically and quickly changing the way our entire world works. After months of buildup, the war was launched... about regime change, while also saying that he would still be willing to talk to the regime and cut some kind of a deal. His Secretary of State, Marco Rubio, has variously stated that America's war aims are to destroy Iran's ballistic missile program and its navy, while his secr
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=xgFKxFX3IwY" target="_blank">An Argument The Moon is a PLANET!</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 minutephysics</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 1,234 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> In 2006, the International Astronomical Union passed [music] its now infamous resolution that Pluto is not a planet. In fact, the resolution didn't just demote Pluto, but laid out a list of three criteria you must pass [music] to be considered a planet. Whether or not you agree with the... by Neptune. Interestingly, if Pluto were as close to the sun as Mercury, it would be able to clear its orbit. And if the Earth moved into the outer Kyper belt, it wouldn't be able to clear its orbit. But more importantly, look here. The moon is well and clearly
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=h3DCdWyb0cc" target="_blank">The Most Insane Megaproject You Never Heard About</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Kurzgesagt</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 2,077 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> In the 1960s, the US planned to nuke Israel with hundreds of thermonuclear bombs and Panama and Alaska. All in the name of progress driven by a mad scientist to use the most destructive of weapons to build things, excavate canals, carve out harbors, tap oil and gas. This was... So, one of the first ideas of the new build with nukes doctrine, was to blast open a new one through the Israeli desert. On the other side of the world, the Panama Canal had long been in need of an upgrade. Scientists explored extension routes and found they wo
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=YSJY3DvnybE" target="_blank">The Secret Spy Tech That Led To Credit Cards</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Veritasium</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 5,392 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Watch what happens if you take a credit card and stick it in a beaker of acetone. >> Nail polish remover. Basic. >> Nail polish remover. >> Okay. >> It does start to work very quickly. >> That is crazy. >> This is one that we started about 30 minutes... tore all the plaster out trying to find the microphones that were hidden in the wall. Of course, there was nothing. Absolutely nothing. Joseph Bezian, who was a total hero, pointed at the the the plaque and said, "Don't say anything. Just come outside and let's talk." And then they
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=mQfQwLW6CNw" target="_blank">Iran has a new Supreme Leader. Does it even matter?</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 CaspianReport</span>
+                    <span>📅 03 Apr 22:55</span>
+                    <span>📄 1,539 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Ayatah Ali Kame the man who had personified the Islamic Republic for nearly four decades is dead. Within days Iran's assembly of experts had chosen his son Moshtaba as the country's new supreme leader. The speed of that decision says less about the strength of Iran's institutions than it does... for 37 years during which time he greatly expanded his power and scope over the civilian government. However, the Islamic Republic was never a one-man show. As much as the Supreme Leader had appropriated the levers of power, it was still a system. So, even though the Supreme Leader had
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=p9R-aXWoNHw" target="_blank">Iran has a secret doomsday plan</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 CaspianReport</span>
+                    <span>📅 03 Apr 22:55</span>
+                    <span>📄 1,949 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Whenever there is a conflict in the Gulf, people instinctively look to oil. That's where the first signs of trouble show up in tanker traffic, shipping routes, and fuel prices. But the real vulnerability lies somewhere else entirely. The water people consume doesn't come naturally. It has to be produced.... And the color-coded layout makes it easy to filter for high factuality sources, see political bias, or filter for the geographic origin of each source. on developing stories like this. Ground News provides clarity you don't find anywhere else. Because I believe in Ground News so much, we're offering yo
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=a6iT4P-0l2k" target="_blank">EEUU va a por el ORO de VENEZUELA (y puede acabar MUY mal) @VisualPolitik</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 VisualPolitik</span>
+                    <span>📅 03 Apr 22:23</span>
+                    <span>📄 3,976 words</span>
+                    <span class="category-tag">Geopolitics</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Miraflores, the presidential palace of Venezuela, remains full of photos of Nicolás Maduro and Cilia Flores with a message that is repeated everywhere. We want them back. However, beyond appearances, it seems clear that in Caracas they are already completely forgetting about the old Bolivarian bigwig, not to mention the... US military forces in Latin America. They have all passed through Caracas and they have all met with Delci Rodríguez. The craziest thing of all, during his visit to Miraflores, Borgon joked with Delfie and with Dios Cabello himself, the same Diosdado who is still subject to an arrest warrant
+                </div>
+            </div>
+
+        </div>
+
+        <div class="section" data-category="Science">
+            <div class="section-header">
+                <span class="emoji">🔬</span>
+                <h2>Science</h2>
+                <span style="opacity: 0.6">(27 videos)</span>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=tstiSdmm0N8" target="_blank">So You Think Gravity Controls the Universe? Think Again</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Arvin Ash</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 1,662 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> At the smallest scales, everything that happens is governed by forces. In quantum physics, these forces determine how matter behaves, how atoms form, and why the universe looks the way it does. In this video, we'll explore the three forces that dominate the quantum world, electromagnetism, the weak force, and... are like invisible balls and boomerangs exchanged between magnets, resulting in attraction or repulsion. So far, we've looked at forces that move electric charge and govern interactions. The weak force plays a very different role. Unlike the strong force, which binds particles together in the nucleus, we'll talk about t
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=2ScfmNkk6A8" target="_blank">The Hidden Structure of Reality (11 Layers of Existence)</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Arvin Ash</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 1,722 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> You wake up in the morning. You shut off your alarm. You check your phone. Everything looks fine. Sure, it's all real, but it's just level one of reality. There are many more levels, at least 10. Today, we're going to dive deep into what those 11 levels are, and... or plus one for the proton. Electrons orbit as a cloud around the nucleus. These are the building blocks described by the standard model of particle physics. And there are several more building blocks. But if we go deeper to level five, we see that none of the components of
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=l5_MtFTQHLI" target="_blank">Dark Matter Explained: And Why Some Physicists Doubt it</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Arvin Ash</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 3,794 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Modern cosmology tells us the universe is dominated by something we can't see. This invisible component doesn't emit light, doesn't absorb light, and yet exerts a powerful gravitational influence on galaxies and other cosmic structures. In this video, we'll examine what dark matter is, the evidence for its existence, what... before the CMBB was even formed. Yes, the CMBB can reveal conditions of the universe prior to its formation. You might ask, how is that possible? To explain that, let me first explain what the CMBB is. The early universe was a hot, dense plasma, meaning it was a k
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=IWfb9FnCTvI" target="_blank">The Universe Is Accelerating...and No One Knows Why</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Arvin Ash</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 3,193 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Dark energy is not just another unsolved problem in physics. It is the dominant component of the universe making up nearly 70% of everything that exists. Yet, we still don't know what it is. It doesn't clump like matter. It doesn't dilute like radiation. And instead of slowing the expansion... in Australia, came up with a clever way to measure the true distances and red shifts of very distant galaxies by trying to find recent supernova explosions, very special ones called type 1A supernova. These provide a standard candle because all type A supernovi explode with the same luminosity be
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=lZGyjR6Y9vw" target="_blank">Is Quantum Mechanics Stopping Aliens From Contacting Us?</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 minutephysics</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 1,162 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Why hasn't extraterrestrial life contacted us yet? Is the core question of the Fermy paradox. In short, the observable universe contains so many millions of billions of stars and planets that the chances of intelligent life arising elsewhere and probably many many many places elsewhere seems almost inevitable. And yet,... around 100 km in size and a bigger one from more distant locations. And this is not like the very large array where they have radio dishes really far apart to simulate having a large telescope. In this case, you [music] actually have to build the whole telescope because you
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=O5FqozA4IpA" target="_blank">Martian Soil Is Deadly. And That's Why It Might Support Life.</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 PBS Space Time</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 2,881 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Thank you to The Economist for supporting PBS. The tardigrade, the water bear, the moss piglet, capable of surviving extreme drying, freezing heat, radiation, the vacuum of space, maybe even asteroid impact. And who knows, maybe some tardigrades have hitchhiked on impact ejector to Mars. And according to a new... of finding actual living life on Mars. Now, don't get me wrong, signs of past life would be huge. But what if we're not ready to give up? Maybe the Jezero crater discovery should raise our hopes that somewhere the descendants of whatever left those marks are still there, s
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=UnrtLi7YIY4" target="_blank">We Made A New Journal</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Kurzgesagt</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 235 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Taking care of your health can feel overwhelming. That's why we created a health journal to set you up for success in the new year. It's a science-based, easy to follow framework designed to improve your health in a way that works for you without pressure or guilt. You start... the time to get ready for the new year and make a change. To kickstart your health journey, we've also created some exclusive health club merch for you. Wear them as companions to remind you of your goal. Just give yourself one month. Try it. See where it takes you.
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=yDAAlojz8NU" target="_blank">This Is the Scariest Place in The Universe</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Kurzgesagt</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 1,364 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> The vast majority of the cosmos is voids. Gigantic, unfathomably large spaces of empty nothingness. Bubbles of eternal night stretching hundreds of millions of light years almost entirely devoid of galaxies, [music] stars, or light. The loneliest places in [music] existence. Voids are not just the absence of stuff, but... an inescapable prison. And this isn't some exotic corner of the cosmos. This is how the vast majority of the universe feels to human eyes. Just silent blackness without any movement everywhere forever. Although there is something mysterious hiding in the dark. Faint tendrils of dark matter penetrating into t
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=rRnOtKlg4jA" target="_blank">I Tried Coding My Own Synthesizer</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Sebastian Lague</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 5,671 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Hello everyone and welcome to another episode of coding adventures. Today I'd like to try synthesizing the sounds of some musical instruments. Now we recently worked on this little spectrogram tool which allows us to visualize the strength of different frequencies in a sound and how those change over time.... the code or just in my ears, but I could swear the sound changed slightly towards the end there. So, I've been snooping around the spectrogram here, and it sure does look suspicious. In particular, I mean, these little jumps at the 2 and 4 secondond marks where things su
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=Q8Fkpi18QXU" target="_blank">Terence Tao – How the world’s top mathematician uses AI</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Dwarkesh Patel</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 16,591 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Okay, today I'm chatting with Terrance Tao, who needs no introduction. Terrance, I want to begin by having you retell the story of how Kepler discovered the laws of planetary motion, because I think this will be a great jumping off point to talk about AI for math. Okay, yeah.... a time. Um and I think Kepler eventually just stole the data. He He copied it and and had to have a fight with with Brahe's descendants. Um but he did work out he took the data and then he worked out to kind of his disappointment that his beautiful
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=VD4oHv5kO2Q" target="_blank">Two Competing Theories Could Solve Physics' Greatest Paradox</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Arvin Ash</span>
+                    <span>📅 03 Apr 17:27</span>
+                    <span>📄 1,324 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> At large scales, gravity is described by Einstein's general relativity. At small scales, the universe is described by quantum mechanics. But when we try to apply both at once, the math breaks and even spacetime itself becomes uncertain. In this video, we'll build the problem of quantum gravity step by... going to have to be a quantum theory of spacetime. This is where the clash becomes unavoidable. Quantum mechanics needs [music] a fixed stage, but general relativity says the stage itself evolves. We found that quantum mechanics, which is at least as proven, ruins them. For example, if you consider
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=tstiSdmm0N8" target="_blank">So You Think Gravity Controls the Universe? Think Again</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Arvin Ash</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 1,662 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> At the smallest scales, everything that happens is governed by forces. In quantum physics, these forces determine how matter behaves, how atoms form, and why the universe looks the way it does. In this video, we'll explore the three forces that dominate the quantum world, electromagnetism, the weak force, and... are like invisible balls and boomerangs exchanged between magnets, resulting in attraction or repulsion. So far, we've looked at forces that move electric charge and govern interactions. The weak force plays a very different role. Unlike the strong force, which binds particles together in the nucleus, we'll talk about t
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=VD4oHv5kO2Q" target="_blank">Two Competing Theories Could Solve Physics' Greatest Paradox</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Arvin Ash</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 1,324 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> At large scales, gravity is described by Einstein's general relativity. At small scales, the universe is described by quantum mechanics. But when we try to apply both at once, the math breaks and even spacetime itself becomes uncertain. In this video, we'll build the problem of quantum gravity step by... going to have to be a quantum theory of spacetime. This is where the clash becomes unavoidable. Quantum mechanics needs [music] a fixed stage, but general relativity says the stage itself evolves. We found that quantum mechanics, which is at least as proven, ruins them. For example, if you consider
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=l5_MtFTQHLI" target="_blank">Dark Matter Explained: And Why Some Physicists Doubt it</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Arvin Ash</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 3,794 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Modern cosmology tells us the universe is dominated by something we can't see. This invisible component doesn't emit light, doesn't absorb light, and yet exerts a powerful gravitational influence on galaxies and other cosmic structures. In this video, we'll examine what dark matter is, the evidence for its existence, what... before the CMBB was even formed. Yes, the CMBB can reveal conditions of the universe prior to its formation. You might ask, how is that possible? To explain that, let me first explain what the CMBB is. The early universe was a hot, dense plasma, meaning it was a k
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=2ScfmNkk6A8" target="_blank">The Hidden Structure of Reality (11 Layers of Existence)</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Arvin Ash</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 1,722 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> You wake up in the morning. You shut off your alarm. You check your phone. Everything looks fine. Sure, it's all real, but it's just level one of reality. There are many more levels, at least 10. Today, we're going to dive deep into what those 11 levels are, and... or plus one for the proton. Electrons orbit as a cloud around the nucleus. These are the building blocks described by the standard model of particle physics. And there are several more building blocks. But if we go deeper to level five, we see that none of the components of
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=lZGyjR6Y9vw" target="_blank">Is Quantum Mechanics Stopping Aliens From Contacting Us?</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 minutephysics</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 1,162 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Why hasn't extraterrestrial life contacted us yet? Is the core question of the Fermy paradox. In short, the observable universe contains so many millions of billions of stars and planets that the chances of intelligent life arising elsewhere and probably many many many places elsewhere seems almost inevitable. And yet,... around 100 km in size and a bigger one from more distant locations. And this is not like the very large array where they have radio dishes really far apart to simulate having a large telescope. In this case, you [music] actually have to build the whole telescope because you
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=O5FqozA4IpA" target="_blank">Martian Soil Is Deadly. And That's Why It Might Support Life.</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 PBS Space Time</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 2,881 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Thank you to The Economist for supporting PBS. The tardigrade, the water bear, the moss piglet, capable of surviving extreme drying, freezing heat, radiation, the vacuum of space, maybe even asteroid impact. And who knows, maybe some tardigrades have hitchhiked on impact ejector to Mars. And according to a new... of finding actual living life on Mars. Now, don't get me wrong, signs of past life would be huge. But what if we're not ready to give up? Maybe the Jezero crater discovery should raise our hopes that somewhere the descendants of whatever left those marks are still there, s
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=UnrtLi7YIY4" target="_blank">We Made A New Journal</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Kurzgesagt</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 235 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Taking care of your health can feel overwhelming. That's why we created a health journal to set you up for success in the new year. It's a science-based, easy to follow framework designed to improve your health in a way that works for you without pressure or guilt. You start... the time to get ready for the new year and make a change. To kickstart your health journey, we've also created some exclusive health club merch for you. Wear them as companions to remind you of your goal. Just give yourself one month. Try it. See where it takes you.
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=yDAAlojz8NU" target="_blank">This Is the Scariest Place in The Universe</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Kurzgesagt</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 1,364 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> The vast majority of the cosmos is voids. Gigantic, unfathomably large spaces of empty nothingness. Bubbles of eternal night stretching hundreds of millions of light years almost entirely devoid of galaxies, [music] stars, or light. The loneliest places in [music] existence. Voids are not just the absence of stuff, but... an inescapable prison. And this isn't some exotic corner of the cosmos. This is how the vast majority of the universe feels to human eyes. Just silent blackness without any movement everywhere forever. Although there is something mysterious hiding in the dark. Faint tendrils of dark matter penetrating into t
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=rRnOtKlg4jA" target="_blank">I Tried Coding My Own Synthesizer</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Sebastian Lague</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 5,671 words</span>
+                    <span class="category-tag">Science</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Hello everyone and welcome to another episode of coding adventures. Today I'd like to try synthesizing the sounds of some musical instruments. Now we recently worked on this little spectrogram tool which allows us to visualize the strength of different frequencies in a sound and how those change over time.... the code or just in my ears, but I could swear the sound changed slightly towards the end there. So, I've been snooping around the spectrogram here, and it sure does look suspicious. In particular, I mean, these little jumps at the 2 and 4 secondond marks where things su
+                </div>
+            </div>
+
+        </div>
+
+        <div class="section" data-category="Tech/Dev">
+            <div class="section-header">
+                <span class="emoji">💻</span>
+                <h2>Tech/Dev</h2>
+                <span style="opacity: 0.6">(22 videos)</span>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=kzfXBenNxeA" target="_blank">The REAL Reason Asteroids Aren't Planets</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 minutephysics</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 991 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> [music] When the first asteroids were discovered over 200 years ago, they were celebrated as new planets. And the story goes that the rapid and overwhelming discovery of hundreds and then thousands more quickly convinced scientists that asteroids shouldn't be planets. But that is totally wrong. The real reason asteroids... 1953 when boom, their use plummeted. This change wasn't because of a fear of a huge list of planets, nor from a vote by a bureaucracy, but instead [music] from a scientific discovery. Asteroids, it turns out, are not just miniature versions of the larger planets, but [music] are in
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=aoag03mSuXQ" target="_blank">The Internet Was Weeks Away From Disaster and No One Knew</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Veritasium</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 9,346 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> In 2021, a hacker uncovered a fatal weakness in the world's most important operating system. >> What would you do with a key that gets you into any server on the internet? >> Uh, is this live to the public right now? >> Yeah, it's live on this server. Look,... research labs. This was a time of freedom. But by the 80s, AT&T started going after Unix clone developers for copyright infringement. Later, they even sued the University of California at Berkeley. The tech landscape had shifted. They wanted to close off software development. Companies were now making their employe
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=mhBya3JYteQ" target="_blank">How do aircraft systems communicate?</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Ben Eater</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 4,115 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> This altimeter was removed from an airplane and it's completely mechanical thing. You know, these wires here just power a light so you can see it at night. Uh but the way it works is it senses air pressure with this port on the back which is connected through some... displayed down here. And I can change it by turning this knob here. So I can set 2995 there and it reads about zero. But the whole reason I'm making this video is that there's a feature of this new backup altimeter uh that will allow the primary flight i
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=o7NYXvYohYk" target="_blank">Millions of JS devs just got penetrated by a RAT…</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Fireship</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 956 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> If you're a JavaScript developer, I have some bad news. But put down your artisal soy milk latte and find a safe space to watch this video because it will almost certainly make you cry. I can hardly keep it together myself because yesterday a precisiong guided remote access Trojan... Windows, and Linux to find out if there's an actual RAT living on your machine or remote access Trojan. If the RAT file is found, you are screwed. Your system is compromised, and simply deleting the RAT is not enough. You'll want to immediately roll all API keys and toke
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=DpwmmXmzvfo" target="_blank">Eric Schmidt: How China Dominates Robotics (And Why America Is Falling Behind) | 241</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Peter Diamandis</span>
+                    <span>📅 03 Apr 22:55</span>
+                    <span>📄 7,976 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> We're living through a historic moment right now. The next thing that's really interesting and terrifying also is recursive self-improvement, but we don't have it yet. What we do have I keep asking my friends, when does the asymptote arrive and when does the curve slow down? It is actually... traditional hardware, things like that. Um we've not um the next thing that's really interesting and terrifying also is recursive self-improvement. >> Mhm. It's not happening yet. And so it's easy to convince yourself that you're going to have human agents sorry, computer agents that are human-like completely within a
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=kzfXBenNxeA" target="_blank">The REAL Reason Asteroids Aren't Planets</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 minutephysics</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 991 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> [music] When the first asteroids were discovered over 200 years ago, they were celebrated as new planets. And the story goes that the rapid and overwhelming discovery of hundreds and then thousands more quickly convinced scientists that asteroids shouldn't be planets. But that is totally wrong. The real reason asteroids... 1953 when boom, their use plummeted. This change wasn't because of a fear of a huge list of planets, nor from a vote by a bureaucracy, but instead [music] from a scientific discovery. Asteroids, it turns out, are not just miniature versions of the larger planets, but [music] are in
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=aoag03mSuXQ" target="_blank">The Internet Was Weeks Away From Disaster and No One Knew</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Veritasium</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 9,346 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> In 2021, a hacker uncovered a fatal weakness in the world's most important operating system. >> What would you do with a key that gets you into any server on the internet? >> Uh, is this live to the public right now? >> Yeah, it's live on this server. Look,... research labs. This was a time of freedom. But by the 80s, AT&T started going after Unix clone developers for copyright infringement. Later, they even sued the University of California at Berkeley. The tech landscape had shifted. They wanted to close off software development. Companies were now making their employe
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=mhBya3JYteQ" target="_blank">How do aircraft systems communicate?</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Ben Eater</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 4,115 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> This altimeter was removed from an airplane and it's completely mechanical thing. You know, these wires here just power a light so you can see it at night. Uh but the way it works is it senses air pressure with this port on the back which is connected through some... displayed down here. And I can change it by turning this knob here. So I can set 2995 there and it reads about zero. But the whole reason I'm making this video is that there's a feature of this new backup altimeter uh that will allow the primary flight i
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=o7NYXvYohYk" target="_blank">Millions of JS devs just got penetrated by a RAT…</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Fireship</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 956 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> If you're a JavaScript developer, I have some bad news. But put down your artisal soy milk latte and find a safe space to watch this video because it will almost certainly make you cry. I can hardly keep it together myself because yesterday a precisiong guided remote access Trojan... Windows, and Linux to find out if there's an actual RAT living on your machine or remote access Trojan. If the RAT file is found, you are screwed. Your system is compromised, and simply deleting the RAT is not enough. You'll want to immediately roll all API keys and toke
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=DpwmmXmzvfo" target="_blank">Eric Schmidt: How China Dominates Robotics (And Why America Is Falling Behind) | 241</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Peter Diamandis</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 7,976 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> We're living through a historic moment right now. The next thing that's really interesting and terrifying also is recursive self-improvement, but we don't have it yet. What we do have I keep asking my friends, when does the asymptote arrive and when does the curve slow down? It is actually... traditional hardware, things like that. Um we've not um the next thing that's really interesting and terrifying also is recursive self-improvement. >> Mhm. It's not happening yet. And so it's easy to convince yourself that you're going to have human agents sorry, computer agents that are human-like completely within a
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥 MEDIUM-HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=01f3r_DnOPc" target="_blank">How to Rebuild an Economy</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥 MEDIUM-HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Economics Explained</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 3,584 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> In 1994, Rwanda experienced one of the worst humanitarian catastrophes of the 20th century. A systematic genocide that killed somewhere between 500,000 and a million people in roughly 100 days. A third of the population fled, the infrastructure was destroyed, and the economy collapsed, falling by roughly 50% in a... learning from 100 plus practitioners from companies like Nvidia and Microsoft who've witnessed and built through the AI boom. Not only do they have presenters from top companies, but the focus is different. The goal of the event is to teach you real skills. In just 16 hours, you wi
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥 MEDIUM-HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=ZH3iKbEiks0" target="_blank">I was wrong btw</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥 MEDIUM-HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 The Primeagen</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 3,643 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> If you've known me for a little bit, you probably have seen me make fun of Arch Linux, you know, maybe like once or twice on Twitter. I still have no idea what is happening here. And now look at me. I'm I'm actually using Arch Linux. Okay, I'm using... do with it. Okay. Second, never search with your eyes if possible. Meaning, I want to press one button and go to where I want to go. If I can't do that, I want to fuzzy find to where I want to go. And if then I can't do it,
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥 MEDIUM-HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=aRUhgrqnpGY" target="_blank">How ICE's Surveillance System Works</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥 MEDIUM-HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Wendover Productions</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 3,672 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> This is an AI enabled license plate reading surveillance camera. And in a convoluted way, the US's Federal Immigration and Customs Enforcement Agency, more commonly known as ICE, has been able to access its data. That's despite that the town whose police department operates this camera, Glenwood Springs, is about... ICE's investigative arm, is conducting a search using Glenwood's data. There's even indication that Glenwood's data might have been used to track political disscent. In their October logs, there are a number of searches in the days following the No King's Day protest, a nationwide demonstration against the actions of
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥 MEDIUM-HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=PCypBUVhff8" target="_blank">Inside The Startup Reinventing The $6 Trillion Chemical Manufacturing Industry</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥 MEDIUM-HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Y Combinator</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 2,573 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> This reactor in Houston, Texas, represents a whole new approach to chemical manufacturing. We make chemicals in a completely new way. We started off by making hydrogen peroxide. Now we sell products for water treatment, national defense, infrastructure, agriculture, you name it, we make a chemical for it. >> The... was working on this project and then Gorb was like oh yeah no like I found this like really crazy mechanism in pancreatic cancer where it's like locally 50% hydrogen peroxide concentration. I was like what that's wild. >> It turned out that an obscure enzyme found in pancreatic canc
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥 MEDIUM-HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=8SVocWnDHwE" target="_blank">AI Is Unlocking Millions Of New Builders</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥 MEDIUM-HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Y Combinator</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 9,498 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> So I think now we are just truly seeing this unlock where people who who were like really close to problem domain expert and but have been blocked by you know technology barrier to sort of really express themselves are using emerging to sort of build these things out. There's... you know and and now looking back it it it almost looks uh funny. And so we applied to YC with this idea and um and when we were building this testing agents we uh realized that if you can solve for verification which is essentially you know you c
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥 MEDIUM-HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=sXVbWkoCVaA" target="_blank">You NEED to try these open-source AI projects right now...</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥 MEDIUM-HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Matthew Berman</span>
+                    <span>📅 03 Apr 20:41</span>
+                    <span>📄 2,562 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> I'm going to show you four incredible open source projects that show you where the world is headed with agents. These four projects show the future of how humans are going to interact and use and leverage artificial intelligence. The first one is called GStack and it is by Y... not enough. How do we actually give a 10-star experience as part of the Airbnb experience? So that's kind of what he's trying to recreate here. We have an engineering manager, a senior designer, design partner, staff engineer, debugger. So basically what he has done is broken out all o
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥 MEDIUM-HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=01f3r_DnOPc" target="_blank">How to Rebuild an Economy</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥 MEDIUM-HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Economics Explained</span>
+                    <span>📅 02 Apr 23:06</span>
+                    <span>📄 3,584 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> In 1994, Rwanda experienced one of the worst humanitarian catastrophes of the 20th century. A systematic genocide that killed somewhere between 500,000 and a million people in roughly 100 days. A third of the population fled, the infrastructure was destroyed, and the economy collapsed, falling by roughly 50% in a... learning from 100 plus practitioners from companies like Nvidia and Microsoft who've witnessed and built through the AI boom. Not only do they have presenters from top companies, but the focus is different. The goal of the event is to teach you real skills. In just 16 hours, you wi
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥 MEDIUM-HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=ZH3iKbEiks0" target="_blank">I was wrong btw</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥 MEDIUM-HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 The Primeagen</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 3,643 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> If you've known me for a little bit, you probably have seen me make fun of Arch Linux, you know, maybe like once or twice on Twitter. I still have no idea what is happening here. And now look at me. I'm I'm actually using Arch Linux. Okay, I'm using... do with it. Okay. Second, never search with your eyes if possible. Meaning, I want to press one button and go to where I want to go. If I can't do that, I want to fuzzy find to where I want to go. And if then I can't do it,
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥 MEDIUM-HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=aRUhgrqnpGY" target="_blank">How ICE's Surveillance System Works</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥 MEDIUM-HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Wendover Productions</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 3,672 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> This is an AI enabled license plate reading surveillance camera. And in a convoluted way, the US's Federal Immigration and Customs Enforcement Agency, more commonly known as ICE, has been able to access its data. That's despite that the town whose police department operates this camera, Glenwood Springs, is about... ICE's investigative arm, is conducting a search using Glenwood's data. There's even indication that Glenwood's data might have been used to track political disscent. In their October logs, there are a number of searches in the days following the No King's Day protest, a nationwide demonstration against the actions of
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥 MEDIUM-HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=8SVocWnDHwE" target="_blank">AI Is Unlocking Millions Of New Builders</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥 MEDIUM-HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Y Combinator</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 9,498 words</span>
+                    <span class="category-tag">Tech/Dev</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> So I think now we are just truly seeing this unlock where people who who were like really close to problem domain expert and but have been blocked by you know technology barrier to sort of really express themselves are using emerging to sort of build these things out. There's... you know and and now looking back it it it almost looks uh funny. And so we applied to YC with this idea and um and when we were building this testing agents we uh realized that if you can solve for verification which is essentially you know you c
+                </div>
+            </div>
+
+        </div>
+
+        <div class="section" data-category="DeFi/Crypto">
+            <div class="section-header">
+                <span class="emoji">₿</span>
+                <h2>DeFi/Crypto</h2>
+                <span style="opacity: 0.6">(10 videos)</span>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=LRIddOgzX7c" target="_blank">Leveraged XRP ETFs Explained</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 CoinDesk</span>
+                    <span>📅 03 Apr 22:57</span>
+                    <span>📄 1,974 words</span>
+                    <span class="category-tag">DeFi/Crypto</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> half a billion dollars came in in 12 weeks time, which is amazing for an ETF, especially for um a crypto paper ETF. We didn't even own the physical. We still don't own the physical XRP. It's a derivative holding. And so, the the interest was astounding. XRP community is... and holders I think have migrated towards those rightfully so. They migrated towards the XRP where you put it in your portfolio and park it and wait for it to to do what it's going to do. whereas the levered product users, they're very aggressive, mostly day traders and ve
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=GwcFxTuMYmU" target="_blank">I Went To DEFCON!</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 The Primeagen</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 3,219 words</span>
+                    <span class="category-tag">DeFi/Crypto</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> look at me LARPing as a hacker at Defcon 32 which also is my first Defcon if you're not familiar with Defcon it's just one giant playground of puzzle solving and I decided to join Prim engen's team the psychoholic and after 72 hours of difficult Cipher cracking we got... down to the bottom there will be this picture of a book and if you click it you get a PDF now when the PDF opens up and you kind of scroll down you'll start seeing these lines inside the PDF and right away somebody from the group noticed someth
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=q5qhFnv0UhA" target="_blank">Your Job Will Be Automated. Here's the Only Skill That Survives</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Bankless</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 16,548 words</span>
+                    <span class="category-tag">DeFi/Crypto</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Welcome to Bankless, where today we explore the frontier of AI. Is it going to take our job and how can we survive the transformation? This is Ryan Sean Adams. I'm here with David Hoffman, and we're here to help you become more bankless. David and I read a paper... to silver and IAU on linked to gold surged on Bit. This is Bit's universal exchange vision and action. Crypto equities and real world assets in one place built with crypto native speed and flexibility. If you want to trade stocks the way you trade crypto, explore tokenized equities on
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=JYQFJpiM5P0" target="_blank">We Need To Figure This Out Now... Or We're In Trouble (Oil, Markets, Crypto)</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Bankless</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 11,306 words</span>
+                    <span class="category-tag">DeFi/Crypto</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Bankless Nation, it is the last week of March time for the Bankless Weekly Rollup. Did the banks in the crypto industry reach a compromise on the great stable coin yield debate for the Clarity Act? That's the question today. And the answer is like maybe. And then there's also... article, I prepare a few notes, questions to ask him and then we get on a podcast and we hit record and what is output is like a 35minute episode of where he believes the markets are at a given point in time. So that comes out every Wednesday. It'
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥 MEDIUM-HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=vbivuW2wWAk" target="_blank">Google Just Dropped a Quantum Bomb on Crypto</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥 MEDIUM-HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Bankless</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 12,148 words</span>
+                    <span class="category-tag">DeFi/Crypto</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Bankless Nation, welcome to the first week of April. It's time for the Bankless Weekly Rollup. Google released a major quantum warning directed squarely at us, David. Not you and me, but at crypto. Let's say they have an algorithmic breakthrough that just 20xed progress towards cracking ECDSA and some... Is that it? Is that that >> we have the the monthly candle for the month of March >> was green after five red monthly candles. Five red monthly candles in Bitcoin is is I don't I think that's happened a very low number of times. >> J I g
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=wURmzLKhJco" target="_blank">Ethereum’s Quantum Plan Before Q-Day with Justin Drake</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Bankless</span>
+                    <span>📅 03 Apr 17:23</span>
+                    <span>📄 17,689 words</span>
+                    <span class="category-tag">DeFi/Crypto</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> One interesting shift of mindset for me in in the last few months is that I've I've stopped thinking about post-quantum as you know, a hurdle that we have to overcome. And I think of it more as an opportunity. Right? It's an opportunity for Ethereum to stand out as... now, we can basically manufacture one logical qubit, uh but it's still a very important zero-to-one moment. And now, it's about scaling it to multiple logical qubits. Another big breakthrough is on the algorithmic side of things. Previously, we thought it would take millions, actually tens of millions, of physi
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=GwcFxTuMYmU" target="_blank">I Went To DEFCON!</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 The Primeagen</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 3,219 words</span>
+                    <span class="category-tag">DeFi/Crypto</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> look at me LARPing as a hacker at Defcon 32 which also is my first Defcon if you're not familiar with Defcon it's just one giant playground of puzzle solving and I decided to join Prim engen's team the psychoholic and after 72 hours of difficult Cipher cracking we got... down to the bottom there will be this picture of a book and if you click it you get a PDF now when the PDF opens up and you kind of scroll down you'll start seeing these lines inside the PDF and right away somebody from the group noticed someth
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=wURmzLKhJco" target="_blank">Ethereum’s Quantum Plan Before Q-Day with Justin Drake</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Bankless</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 17,689 words</span>
+                    <span class="category-tag">DeFi/Crypto</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> One interesting shift of mindset for me in in the last few months is that I've I've stopped thinking about post-quantum as you know, a hurdle that we have to overcome. And I think of it more as an opportunity. Right? It's an opportunity for Ethereum to stand out as... now, we can basically manufacture one logical qubit, uh but it's still a very important zero-to-one moment. And now, it's about scaling it to multiple logical qubits. Another big breakthrough is on the algorithmic side of things. Previously, we thought it would take millions, actually tens of millions, of physi
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=q5qhFnv0UhA" target="_blank">Your Job Will Be Automated. Here's the Only Skill That Survives</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Bankless</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 16,548 words</span>
+                    <span class="category-tag">DeFi/Crypto</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Welcome to Bankless, where today we explore the frontier of AI. Is it going to take our job and how can we survive the transformation? This is Ryan Sean Adams. I'm here with David Hoffman, and we're here to help you become more bankless. David and I read a paper... to silver and IAU on linked to gold surged on Bit. This is Bit's universal exchange vision and action. Crypto equities and real world assets in one place built with crypto native speed and flexibility. If you want to trade stocks the way you trade crypto, explore tokenized equities on
+                </div>
+            </div>
+
+            <div class="video-card high-priority" data-priority="🔥🔥🔥 HIGH">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=JYQFJpiM5P0" target="_blank">We Need To Figure This Out Now... Or We're In Trouble (Oil, Markets, Crypto)</a>
+                    </div>
+                    <span class="badge badge-high">🔥🔥🔥 HIGH</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Bankless</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 11,306 words</span>
+                    <span class="category-tag">DeFi/Crypto</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Bankless Nation, it is the last week of March time for the Bankless Weekly Rollup. Did the banks in the crypto industry reach a compromise on the great stable coin yield debate for the Clarity Act? That's the question today. And the answer is like maybe. And then there's also... article, I prepare a few notes, questions to ask him and then we get on a podcast and we hit record and what is output is like a 35minute episode of where he believes the markets are at a given point in time. So that comes out every Wednesday. It'
+                </div>
+            </div>
+
+        </div>
+
+        <div class="section" data-category="Geography">
+            <div class="section-header">
+                <span class="emoji">🗺️</span>
+                <h2>Geography</h2>
+                <span style="opacity: 0.6">(6 videos)</span>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=2AGrZQ5NBlQ" target="_blank">GEOGRAPHY NOW! CHENGDU</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Geography Now</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 5,512 words</span>
+                    <span class="category-tag">Geography</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> [music] There's a saying in China, even if you are one in a million, there's still 1,400 people exactly just like you. [music] This is [music] China, aka the final boss of Asia. You've probably heard of it. So, let's be honest, there's probably not a lot of things I... for motorbikes to use for [music] crossing. Chungdu was designated as a park city demonstration zone for China's massive urban park initiative to greenify the city. So that means you'll see things like vines marking their territory, colonizing the sides of the elevated highway columns, forest parks, and ecological corrid
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=ysrg42qDoos" target="_blank">How I went to each continent</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Geography Now</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 5,064 words</span>
+                    <span class="category-tag">Geography</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Hey, jogger peeps. So, okay. I haven't been able to upload a long format topical video in a while, but it's okay. I have a good excuse. Okay, I'm not being lazy. All right, the reason why is because I am currently in the process of moving. Yes, I'm finally... host, and that's why I started Geography Now. But in order to really prepare myself for that, I had to do research. But the problem was in the early years, YouTube didn't really have a geography channel. So that's kind of how I got into it. I was like, "Fin
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=eX0WfHpKmqY" target="_blank">Why 400,000 People Live in Earth's Coldest City</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 RealLifeLore</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 4,992 words</span>
+                    <span class="category-tag">Geography</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Of all the major cities in the world with uh questionable locations, there's got to be one of them that's the most questionable of all. And I'd argue that it's probably this place in the middle of Siberia. Here in the depths of winter, the average low temperature will hover... hardly support any agriculture at all. Yakutsk is a genuinely big city and a thriving regional capital complete with universities, theaters, shopping malls, and high-rise apartments that all exist in this brutal environment that makes it by far the coldest major city on the planet. The coldest temperature ever recorde
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=2AGrZQ5NBlQ" target="_blank">GEOGRAPHY NOW! CHENGDU</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Geography Now</span>
+                    <span>📅 02 Apr 23:06</span>
+                    <span>📄 5,512 words</span>
+                    <span class="category-tag">Geography</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> [music] There's a saying in China, even if you are one in a million, there's still 1,400 people exactly just like you. [music] This is [music] China, aka the final boss of Asia. You've probably heard of it. So, let's be honest, there's probably not a lot of things I... for motorbikes to use for [music] crossing. Chungdu was designated as a park city demonstration zone for China's massive urban park initiative to greenify the city. So that means you'll see things like vines marking their territory, colonizing the sides of the elevated highway columns, forest parks, and ecological corrid
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=ysrg42qDoos" target="_blank">How I went to each continent</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 Geography Now</span>
+                    <span>📅 02 Apr 23:06</span>
+                    <span>📄 5,064 words</span>
+                    <span class="category-tag">Geography</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Hey, jogger peeps. So, okay. I haven't been able to upload a long format topical video in a while, but it's okay. I have a good excuse. Okay, I'm not being lazy. All right, the reason why is because I am currently in the process of moving. Yes, I'm finally... host, and that's why I started Geography Now. But in order to really prepare myself for that, I had to do research. But the problem was in the early years, YouTube didn't really have a geography channel. So that's kind of how I got into it. I was like, "Fin
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=eX0WfHpKmqY" target="_blank">Why 400,000 People Live in Earth's Coldest City</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 RealLifeLore</span>
+                    <span>📅 02 Apr 23:06</span>
+                    <span>📄 4,992 words</span>
+                    <span class="category-tag">Geography</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> Of all the major cities in the world with uh questionable locations, there's got to be one of them that's the most questionable of all. And I'd argue that it's probably this place in the middle of Siberia. Here in the depths of winter, the average low temperature will hover... hardly support any agriculture at all. Yakutsk is a genuinely big city and a thriving regional capital complete with universities, theaters, shopping malls, and high-rise apartments that all exist in this brutal environment that makes it by far the coldest major city on the planet. The coldest temperature ever recorde
+                </div>
+            </div>
+
+        </div>
+
+        <div class="section" data-category="History">
+            <div class="section-header">
+                <span class="emoji">📜</span>
+                <h2>History</h2>
+                <span style="opacity: 0.6">(2 videos)</span>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=wjggoT-3oVM" target="_blank">The Earth Keeps Making Mountains in Colorado and Scientists Don’t Know Why</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 SciShow</span>
+                    <span>📅 03 Apr 22:56</span>
+                    <span>📄 1,503 words</span>
+                    <span class="category-tag">History</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> The Rocky Mountains are a dazzling example of what our planet can build. And they're still in their youth geologically speaking. They're like 80 million years old tops. But as it turns out, Earth had some practice because it's on its second round of Rocky Mountains. That's right. An entire... named snowball earth. This was a period of two globe spanning glaciations that took place between 717 and 635 million years ago. The longer of the two could have covered the entire planet in ice for nearly 60 million years. And during this time, the ice sheets scraped across the
+                </div>
+            </div>
+
+            <div class="video-card " data-priority="⚪ LOW">
+                <div class="video-header">
+                    <div class="video-title">
+                        <a href="https://www.youtube.com/watch?v=wjggoT-3oVM" target="_blank">The Earth Keeps Making Mountains in Colorado and Scientists Don’t Know Why</a>
+                    </div>
+                    <span class="badge badge-low">⚪ LOW</span>
+                </div>
+                <div class="video-meta">
+                    <span>📺 SciShow</span>
+                    <span>📅 02 Apr 23:05</span>
+                    <span>📄 1,503 words</span>
+                    <span class="category-tag">History</span>
+                </div>
+                <div class="video-summary">
+                    <strong>Summary:</strong> The Rocky Mountains are a dazzling example of what our planet can build. And they're still in their youth geologically speaking. They're like 80 million years old tops. But as it turns out, Earth had some practice because it's on its second round of Rocky Mountains. That's right. An entire... named snowball earth. This was a period of two globe spanning glaciations that took place between 717 and 635 million years ago. The longer of the two could have covered the entire planet in ice for nearly 60 million years. And during this time, the ice sheets scraped across the
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            <p>Generated by Hermes Agent • 03 Apr 2026 at 23:12</p>
+            <p>Total: 413 videos • 2,564,955 words</p>
+        </footer>
+    </div>
+    
+    <script>
+        function filterAll() {
+            document.querySelectorAll('.section').forEach(s => s.style.display = 'block');
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+        
+        function filterCategory(cat) {
+            document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelector(`[data-category="History"]`).style.display = 'block';
+        }
+        
+        function filterPriority(priority) {
+            document.querySelectorAll('.section').forEach(s => s.style.display = 'block');
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('.video-card').forEach(card => {
+                if (priority === 'high') {
+                    card.style.display = (card.dataset.priority.includes('HIGH') || card.dataset.priority.includes('VERY HIGH')) ? 'block' : 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
